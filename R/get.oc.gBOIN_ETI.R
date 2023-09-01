@@ -50,9 +50,7 @@ get.oc.gBOIN_ETI <- function(target, # a vector contains 3 target values for tox
   # dose skipping is not allowed
   
   ####################################################################################################
-  ## to make get.oc as self-contained function, we copied functions get.boundary() and select.mtd() here.
   
-  ### nned to update later
   select.mtd <- function(target.t,eff, y.t, y.e, n){
     ## isotonic transformation using the pool adjacent violator algorithm (PAVA)
     pava <- function (x, wt = rep(1, length(x))) 
@@ -168,7 +166,7 @@ get.oc.gBOIN_ETI <- function(target, # a vector contains 3 target values for tox
   dselect.i = rep(0, ntrial); # store the selected dose level
   
   weight.T <- wt1
-  weight.E <- wt2 # maybe modify the weight based on simulation setting.
+  weight.E <- wt2 
   
   
   # boundary for quasi-Bernoulli toxicity
@@ -189,7 +187,7 @@ get.oc.gBOIN_ETI <- function(target, # a vector contains 3 target values for tox
     imm <- vector(mode = "list", length = ndose)
     
     y.t<-rep(0, ndose);    ## the number of DLT at each dose level
-    y.e<-rep(0, ndose);    ## the number of eff at each dose level ???????????????????? y.imm
+    y.e<-rep(0, ndose);    ## the number of eff at each dose level 
     y.i<-rep(0, ndose);
     #var.i<-rep(0, ndose);
     
@@ -204,11 +202,7 @@ get.oc.gBOIN_ETI <- function(target, # a vector contains 3 target values for tox
     
     for(i in 1:ncohort)  
     {  			
-      ### generate grade toxicity outcome
-      # leftp.tox <- 1-sum( prob.tox[,d]) # some prob left so that sum of prob is =1 in rmultinomial()
-      # tox.grade[,d] <- tox.grade[,d]+rmultinom(1,cohortsize, prob=c(leftp.tox, prob.tox[,d]))[2:5]
-      
-      
+      ### generate grade toxicity outcome   
       tox.grade[,d] <- tox.grade[,d]+rmultinom(1,cohortsize, prob=prob.tox[,d])
       eff.grade[,d] <- eff.grade[,d]+rmultinom(1, cohortsize, prob.eff[,d])
       imm[[d]] <-  c(imm[[d]], rnorm(n=cohortsize,mean=mean.imm[,d],sd=sigma.imm[,d]))
@@ -319,7 +313,7 @@ get.oc.gBOIN_ETI <- function(target, # a vector contains 3 target values for tox
     #   
     if(!is.na(dselect.i[trial])& dselect.t[trial] !=99 && dselect.i[trial]<=dselect.t[trial]) {
       B=intersect(c(dselect.i[trial]:dselect.t[trial]), which(elimi==0)) 
-    }else if(is.na(dselect.i[trial])){#|dselect.i[trial]>dselect.t[trial]) {   #####????????????????????????????????????????????????????????????????????????????????
+    }else if(is.na(dselect.i[trial])){
       nadmis <- which(elimi==0&n!=0)
       B=nadmis[nadmis<=dselect.t[trial]]
     }else{ 
