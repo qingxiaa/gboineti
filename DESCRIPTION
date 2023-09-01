@@ -1,11 +1,11 @@
 Package: gboineti
 Type: Package
-Title: What the Package Does (Title Case)
+Title: Obtain the operating characteristics of A generalized Bayesian optimal interval design for dose optimization in immunotherapy by simulating trials.
 Version: 0.1.0
-Author: Who wrote it
-Maintainer: The package maintainer <yourself@somewhere.net>
-Description: More about what it does (maybe more than one line)
-    Use four spaces when indenting paragraphs within the Description.
-License: What license is it under?
+Author: Qing Xia, Kentaro Takeda, Yusuke Yamaguchi, Jun Zhang
+Maintainer: The package maintainer <qingxia0209@gmail.com>
+Description: Obtain the operating characteristics of A generalized Bayesian optimal interval design for dose optimization in immunotherapy by simulating trials.
+License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
+
