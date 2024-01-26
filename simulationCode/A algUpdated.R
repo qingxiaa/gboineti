@@ -1,5 +1,5 @@
-#setwd("C:/Users/qingx/Documents/gBOIN for immunotherapy_qing local/21_Program/")
-setwd("C:/Users/qingx/Dropbox/gBOIN for immunotherapy/21_Program/20230612_Simulation/primary")
+setwd("C:/Users/qingx/Dropbox/gBOIN for immunotherapy/21_Program/revison")
+#setwd("C:/Users/qingx/Dropbox/gBOIN for immunotherapy/21_Program/REVISION")
 library(dplyr)
 library(Iso)
 temp=list.files(pattern = "true*")
@@ -830,7 +830,7 @@ get.oc.gBOIN_ETI <- function(target, # a vector contains 3 target values for tox
 } 
 
 out_ETI <-out_ITTT <-out_ET <-  list()
-for (i in 1:10){
+for (i in 1:12){
   out_ITTT[[i]] <-  get.oc.ITTT(target=c(0.3,0.6,0.5),
                                 prob.tox=toxprob[toxprob$Scenario==i,3:7], 
                                 prob.eff=effprob[effprob$Scenario==i,3:7], 
@@ -890,14 +890,14 @@ for (i in 1:10){
 }
 
 
-summ <- matrix(rep(0, 5*10*6), ncol=5)
+summ <- matrix(rep(0, 5*12*6), ncol=5)
 Designs <- c("BOIN_ET",'ITTT','gBOIN_ETI')
 Parameters <- c('Selections', 'Patients')
-SCN <- rep(1:10,each=6)
-gBOIN_ET <- gBOIN_ETI <-BOIN_ET <- matrix(rep(0, 5*10), ncol=5)
+SCN <- rep(1:12,each=6)
+gBOIN_ET <- gBOIN_ETI <-BOIN_ET <- matrix(rep(0, 5*12), ncol=5)
 PET <- NULL
 
-for (i in 1:10){
+for (i in 1:12){
   summ[6*(i-1)+1,] <- out_ET[[i]]$selpercent
   summ[6*(i-1)+2,] <- out_ET[[i]]$patients
   summ[6*(i-1)+3,] <- out_ITTT[[i]]$selpercent
@@ -915,8 +915,8 @@ for (i in 1:10){
 summ <- data.frame(summ)
 summ$PET <- rep(PET,each=2)
 summ$SCN <- SCN
-summ$designs <- rep(rep(Designs,each=2),10)
-summ$parameters <- rep(Parameters,30)
-write.csv(summ,"A_final.csv")
+summ$designs <- rep(rep(Designs,each=2),12)
+summ$parameters <- rep(Parameters,36)
+write.csv(summ,"A_revision.csv")
 
 apply(summ[,c(1:6)],1,sum)
